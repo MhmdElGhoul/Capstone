@@ -1,19 +1,25 @@
-import React, { useState } from "react";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { OrderProvider } from "./OrderContext";
+import SupplierPortal from "./SupplierPortal";
+import SupplierPage from "./SupplierPage";
 import "./App.css";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
-
   return (
-    <>
-      {isLogin ? (
-        <Login onSwitch={() => setIsLogin(false)} />
-      ) : (
-        <Register onSwitch={() => setIsLogin(true)} />
-      )}
-    </>
+    <OrderProvider>
+      <Router>
+        <nav className="nav-bar">
+          <Link to="/">Supplier Portal</Link>
+          <Link to="/supplier">Supplier Page</Link>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<SupplierPortal />} />
+          <Route path="/supplier" element={<SupplierPage />} />
+        </Routes>
+      </Router>
+    </OrderProvider>
   );
 }
 
